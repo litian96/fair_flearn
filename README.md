@@ -12,7 +12,6 @@
 pip3 install -r requirements.txt
 ```
 
-*Please make sure you have all the libraries successfully installed.*
 
 ### Generate Datasets
 
@@ -22,9 +21,8 @@ For example,
 
 under ```fair_flearn/data/fmnist```, we clearly describe how to generate and preprocess the Fashion MNIST dataset.
 
-*[Note: although we create seperate train and test folders for synthetic/vehicle/sent140/shakespeare datasets (which don't have standard testing sets), we run cross validation on different train/test/validation splits of the entire datasets in the code.]*
 
-**In order to run the following demo on the Vehicle dataset, please go to dir `fair_flearn/data/vehicle` and download and generate datasets according to the `README` file under that directory.**
+**In order to run the following demo on the Vehicle dataset, please go to `fair_flearn/data/vehicle`, download and generate the Vehicle dataset following the `README` file under that directory.**
 
 ## Start Running
 
@@ -32,7 +30,7 @@ under ```fair_flearn/data/fmnist```, we clearly describe how to generate and pre
 
 *[We provide a quick demo on the Vehicle dataset here. Don't need to change any default parameters in any scripts.]*
 
-First specify GPU ids (we can just use CPUs for Vehicle with linear SVM)
+First specify GPU ids (we can just use CPUs for Vehicle with a linear SVM)
 
 ```
 export CUDA_VISIBLE_DEVICES=
