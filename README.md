@@ -116,7 +116,7 @@ In particular, `$dataset` can be chosen from `[vehicle, synthetic, sent140, shak
 **Compare with AFL.** We compare wtih the AFL baseline using the two datasets (Fashion MNIST and Adult) in the [AFL paper](https://arxiv.org/abs/1902.00146). 
 
 * Generate data. (data generation process is as described above) 
-* Specify parameters. `method` should be specified to be `afl` in order to run AFL algorithms. `data_partition_seed` should be set to 0, such that it won't randomly partition datasets into train/test/validation splits. This allows us to use the same standard public testing set as that in the AFL paper. `track_individual_accuracy` should be set to 1. Here is an example `run.sh` for Adult dataset:
+* Specify parameters. `method` should be specified to be `afl` in order to run AFL algorithms. `data_partition_seed` should be set to 0, such that it won't randomly partition datasets into train/test/validation splits. This allows us to use the same standard public testing set as that in the AFL paper. `track_individual_accuracy` should be set to 1. Here is an example `run.sh` for the Adult dataset:
 
 ```
 python3  -u main.py --dataset=$1 --optimizer=$2  \
