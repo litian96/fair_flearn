@@ -1,6 +1,11 @@
 # Fair Resource Allocation in Federated Learning
 
 
+This repository contains the code and experiments for the manuscript:
+
+> [Fair Resource Allocation in Federated Learning](https://arxiv.org/abs/1905.10497)
+> 
+> Arxiv 2019/05
 
  
 
@@ -15,7 +20,7 @@ pip3 install -r requirements.txt
 
 ### Generate Datasets
 
-Due to file size constraints, we didn't directly provide datasets in the code. For each dataset used in the paper, see the `README` files in separate `data/$dataset` folders for instructions on preprocessing and/or sampling data.
+See the `README` files in separate `data/$dataset` folders for instructions on preprocessing and/or sampling data.
 
 For example,
 
@@ -41,7 +46,7 @@ Then go to the `fair_flearn` directory, and start running:
 ```
 bash run.sh $dataset $method $data_partition_seed $q $sampling_device_method | tee $log
 ```
-For Vehicle, `$dataset` is `vehicle`, `$data_partition_seed` can be set to 1, `q` is `0` and `5`. For sampling with weights proportional to the number of data points, `$sampling_device_method` is `2`; for uniform sampling, `$sampling_device_method` is `6`. The exact instructions are as follows.
+For Vehicle, `$dataset` is `vehicle`, `$data_partition_seed` can be set to 1, `q` is `0` for FedAvg, and `5` for q-FedAvg (the proposed objective). For sampling with weights proportional to the number of data points, `$sampling_device_method` is `2`; for uniform sampling (one of the baselines), `$sampling_device_method` is `6`. The exact command lines are as follows.
 
 (1) Experiments to verify the fairness of the q-FFL objective, and compare with uniform sampling schemes:
 
@@ -53,7 +58,7 @@ bash run.sh vehicle qffedavg 1 0 6 | tee log_vehicle/fedavg_uniform_run1
 
 ```
 
-Plot to re-produce the results in the paper:
+Plot to re-produce the results in the manuscript:
 
 (we use `seaborn` to draw the fitting curves of accuracy distributions)
 
@@ -62,15 +67,15 @@ pip install seaborn
 python plot_fairness.py
 ```
 
-We could compare the generated `fairness_vehicle.pdf` with Figure 1 (the Vehicle subfigure) and Figure 2 (the Vehicle subfigure) in the paper to validate reproducibility. Note that the accuracy distributions in the paper (both in Figure and Table) are the results averaged across 5 different data partitions with data parititon seeds 1, 2, 3, 4, 5.
+We could compare the generated `fairness_vehicle.pdf` with Figure 1 (the Vehicle subfigure) and Figure 2 (the Vehicle subfigure) in the manuscript to validate reproducibility. Note that the accuracy distributions reported (both in figures and tables) are the results averaged across 5 different data partitions with data parititon seeds 1, 2, 3, 4, and 5.
 
-(2) For the efficiency experiments:
+(2) For efficiency experiments:
 
 ```
 bash run.sh vehicle qffedsgd 1 5 2 | tee log_vehicle/ffedsgd_run1_q5
 ```
 
-Plot to re-produce the results in the paper:
+Plot to re-produce the results in the manuscript:
 
 ```
 python plot_efficiency.py
@@ -80,7 +85,7 @@ We could compare the generated `efficiency_qffedavg.pdf` fig with Figure 3 (the 
 
 ### Run on other datasets
 
-* First, config `run.sh` based on all hyper-parameters (e.g., batch size, learning rate, etc) reported in the paper (appendix B.2.3). 
+* First, config `run.sh` based on all hyper-parameters (e.g., batch size, learning rate, etc) reported in the manuscript (appendix B.2.3). 
 * If you would like to run on Sent140, you also need to download a pre-trained embedding file using the following commands (this may take 3-5 minutes):
 
 ```
@@ -108,7 +113,7 @@ bash run.sh $dataset $method $seed $q $sampling | tee log_$dataset/$method_run$s
 
 In particular, `$dataset` can be chosen from `[vehicle, synthetic, sent140, shakespeare]`, in accordance with the data directory names under the `fair_flearn/data/` folder.
 
-**Compare with AFL.** We compare wtih AFL using the two datasets (Fashion MNIST and Adult) in the [original paper](https://arxiv.org/abs/1902.00146). 
+**Compare with AFL.** We compare wtih the AFL baseline using the two datasets (Fashion MNIST and Adult) in the [AFL paper](https://arxiv.org/abs/1902.00146). 
 
 * Generate data. (data generation process is as described above) 
 * Specify parameters. `method` should be specified to be `afl` in order to run AFL algorithms. `data_partition_seed` should be set to 0, such that it won't randomly partition datasets into train/test/validation splits. This allows us to use the same standard public testing set as that in the AFL paper. `track_individual_accuracy` should be set to 1. Here is an example `run.sh` for Adult dataset:
@@ -140,3 +145,6 @@ bash run.sh adult afl 0 0 2 | tee log_adult/afl
 * You can find the accuracy numbers in the log files `log_adult/qffedsgd_q5` and `log_adult/afl`, respectively. 
 
 
+## References
+
+See our [Fair Federated Learning](https://arxiv.org/abs/1905.10497)  manuscript for more details as well as all references.
