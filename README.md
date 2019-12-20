@@ -3,9 +3,9 @@
 
 This repository contains the code and experiments for the manuscript:
 
-> [Fair Resource Allocation in Federated Learning](https://arxiv.org/abs/1905.10497)
+> [Fair Resource Allocation in Federated Learning](https://openreview.net/forum?id=ByexElSYDr)
 > 
-> Arxiv 2019/05
+> To Appear at ICLR'20
 
  
 
