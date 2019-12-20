@@ -147,4 +147,4 @@ bash run.sh adult afl 0 0 2 | tee log_adult/afl
 
 ## References
 
-See our [Fair Federated Learning](https://arxiv.org/abs/1905.10497)  manuscript for more details as well as all references.
+See our [Fair Federated Learning](https://openreview.net/pdf?id=ByexElSYDr)  manuscript for more details as well as all references.
