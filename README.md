@@ -144,6 +144,8 @@ bash run.sh adult afl 0 0 2 | tee log_adult/afl
 ```
 * You can find the accuracy numbers in the log files `log_adult/qffedsgd_q5` and `log_adult/afl`, respectively. 
 
+To-do: add fair federated learning+meta-learning stuff
+
 
 ## References
 
