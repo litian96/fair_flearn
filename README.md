@@ -1,7 +1,7 @@
 # Fair Resource Allocation in Federated Learning
 
 
-This repository contains the code and experiments for the manuscript:
+This repository contains the code and experiments for the paper:
 
 > [Fair Resource Allocation in Federated Learning](https://openreview.net/forum?id=ByexElSYDr)
 > 
@@ -20,14 +20,14 @@ pip3 install -r requirements.txt
 
 ### Generate Datasets
 
-See the `README` files in separate `data/$dataset` folders for instructions on preprocessing and/or sampling data.
+See the `README` files in separate `data/$dataset` folders for instructions on preprocessing and/or sampling each dataset.
 
 For example,
 
 under ```fair_flearn/data/fmnist```, we clearly describe how to generate and preprocess the Fashion MNIST dataset.
 
 
-**In order to run the following demo on the Vehicle dataset, please go to `fair_flearn/data/vehicle`, download and generate the Vehicle dataset following the `README` file under that directory.**
+**In order to run the following demo on the Vehicle dataset, please go to `fair_flearn/data/vehicle`, download, and generate the Vehicle dataset following the `README` file under that directory.**
 
 ## Start Running
 
@@ -67,21 +67,21 @@ pip install seaborn
 python plot_fairness.py
 ```
 
-We could compare the generated `fairness_vehicle.pdf` with Figure 1 (the Vehicle subfigure) and Figure 2 (the Vehicle subfigure) in the manuscript to validate reproducibility. Note that the accuracy distributions reported (both in figures and tables) are the results averaged across 5 different data partitions with data parititon seeds 1, 2, 3, 4, and 5.
+We can then compare the generated `fairness_vehicle.pdf` with Figure 1 (the Vehicle subfigure) and Figure 2 (the Vehicle subfigure) in the paper to validate reproducibility. Note that the accuracy distributions reported (both in figures and tables) are the results averaged across 5 different train/test/validation data partitions with data parititon seeds 1, 2, 3, 4, and 5.
 
-(2) For efficiency experiments:
+(2) Experiments to demonstrate the communication-efficiency of the proposed method q-FedAvg:
 
 ```
 bash run.sh vehicle qffedsgd 1 5 2 | tee log_vehicle/ffedsgd_run1_q5
 ```
 
-Plot to re-produce the results in the manuscript:
+Plot to re-produce the results in the paper:
 
 ```
 python plot_efficiency.py
 ```
 
-We could compare the generated `efficiency_qffedavg.pdf` fig with Figure 3 (the Vehicle subfigure) to verify reproducibility.
+We can then compare the generated `efficiency_qffedavg.pdf` fig with Figure 3 (the Vehicle subfigure) to verify reproducibility.
 
 ### Run on other datasets
 
@@ -92,8 +92,8 @@ We could compare the generated `efficiency_qffedavg.pdf` fig with Figure 3 (the 
 cd fair_flearn/flearn/models/sent140
 bash get_embs.sh
 ```
-* We use different models for different datasets, so you might need to change the model name specified by `--model`. The corrsponding model associated with a dataset is described in `fair_flearn/models/$dataset/$model.py`. For instance, if you would like to run on the Shakespeare dataset, you can find the model name under `fair_flearn/models/shakespeare/`, which is `stacked_lstm`, and pass this parameter to `--model='stacked_lstm'`. 
-* You also need to specify how many rounds to run using `--num_rounds`. Suggested number of rounds based on our previous experiments are:
+* We use different models for different datasets, so you need to change the model name specified by `--model`. The corrsponding model associated with a dataset is described in `fair_flearn/models/$dataset/$model.py`. For instance, if you would like to run on the Shakespeare dataset, you can find the model name under `fair_flearn/models/shakespeare/`, which is `stacked_lstm`, and pass this parameter to `--model='stacked_lstm'`. 
+* You also need to specify total communication rounds using `--num_rounds`. Suggested number of rounds based on our previous experiments are:
 
 ```
 Vehicle: default
@@ -113,7 +113,7 @@ bash run.sh $dataset $method $seed $q $sampling | tee log_$dataset/$method_run$s
 
 In particular, `$dataset` can be chosen from `[vehicle, synthetic, sent140, shakespeare]`, in accordance with the data directory names under the `fair_flearn/data/` folder.
 
-**Compare with AFL.** We compare wtih the AFL baseline using the two datasets (Fashion MNIST and Adult) in the [AFL paper](https://arxiv.org/abs/1902.00146). 
+**Compare with AFL.** We compare wtih the AFL baseline using the two datasets (samplaed Fashion MNIST and Adult) following the [AFL paper](https://arxiv.org/abs/1902.00146). 
 
 * Generate data. (data generation process is as described above) 
 * Specify parameters. `method` should be specified to be `afl` in order to run AFL algorithms. `data_partition_seed` should be set to 0, such that it won't randomly partition datasets into train/test/validation splits. This allows us to use the same standard public testing set as that in the AFL paper. `track_individual_accuracy` should be set to 1. Here is an example `run.sh` for the Adult dataset:
