@@ -7,10 +7,10 @@ import tensorflow as tf
 from flearn.utils.model_utils import read_data
 
 # GLOBAL PARAMETERS
-OPTIMIZERS = ['qffedsgd', 'qffedavg', 'afl']
+OPTIMIZERS = ['qffedsgd', 'qffedavg', 'afl', 'maml']
 DATASETS = [ 'synthetic', 'vehicle', 'sent140', 'shakespeare',
 'synthetic_iid', 'synthetic_hybrid', 
-'fmnist', 'adult']   # fmnist: fashion mnist used in the AFL paper
+'fmnist', 'adult', 'omniglot']   # fmnist: fashion mnist used in the AFL paper
 
 
 MODEL_PARAMS = {
@@ -103,6 +103,18 @@ def read_options():
                     help='whether to track each device\'s accuracy, only true when comparing with AFL',
                     type=int,
                     default=0)  
+    parser.add_argument('--held_out',
+                    help="number of held out devices/tasks",
+                    type=int,
+                    default=0)
+    parser.add_argument('--num_fine_tune',
+                    help="number of fine-tuning iterations",
+                    type=int,
+                    default=0)
+    parser.add_argument('--with_maml',
+                    help="whether to learn better intializations or use finetuning baseline",
+                    type=int,
+                    default=0)
 
     try: parsed = vars(parser.parse_args())
     except IOError as msg: parser.error(str(msg))

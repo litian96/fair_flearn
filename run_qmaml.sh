@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+python3  -u main.py --dataset='omniglot' --optimizer='maml'  \
+            --learning_rate=0.01 \
+            --learning_rate_lambda=0.01 \
+            --num_rounds=10000 \
+            --eval_every=10 \
+            --clients_per_round=10 \
+            --batch_size=10 \
+            --q=$1 \
+            --model='cnn' \
+            --sampling=2  \
+            --num_epochs=1 \
+            --data_partition_seed=0 \
+            --log_interval=500 \
+            --static_step_size=0 \
+            --track_individual_accuracy=0 \
+            --output="./q$1" \
+            --held_out=100 \
+            --num_fine_tune=5 \
