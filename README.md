@@ -46,7 +46,7 @@ Then go to the `fair_flearn` directory, and start running:
 ```
 bash run.sh $dataset $method $data_partition_seed $q $sampling_device_method | tee $log
 ```
-For Vehicle, `$dataset` is `vehicle`, `$data_partition_seed` can be set to 1, `q` is `0` for FedAvg, and `5` for q-FedAvg (the proposed objective). For sampling with weights proportional to the number of data points, `$sampling_device_method` is `2`; for uniform sampling (one of the baselines), `$sampling_device_method` is `6`. The exact command lines are as follows.
+For Vehicle, `$dataset` is `vehicle`, `$data_partition_seed` can be set to 1, `q` is `0` for FedAvg, and `5` for q-FedAvg (the proposed objective). For sampling with weights proportional to the number of data points, `$sampling_device_method` is `2`; for uniform sampling (one of the baselines), `$sampling_device_method` is `1`. The exact command lines are as follows.
 
 (1) Experiments to verify the fairness of the q-FFL objective, and compare with uniform sampling schemes:
 
@@ -54,7 +54,7 @@ For Vehicle, `$dataset` is `vehicle`, `$data_partition_seed` can be set to 1, `q
 mkdir log_vehicle
 bash run.sh vehicle qffedavg 1 0 2 | tee log_vehicle/ffedavg_run1_q0
 bash run.sh vehicle qffedavg 1 5 2 | tee log_vehicle/ffedavg_run1_q5
-bash run.sh vehicle qffedavg 1 0 6 | tee log_vehicle/fedavg_uniform_run1
+bash run.sh vehicle qffedavg 1 0 1 | tee log_vehicle/fedavg_uniform_run1
 
 ```
 

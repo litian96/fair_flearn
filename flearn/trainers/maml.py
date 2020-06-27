@@ -30,8 +30,9 @@ class Server(BaseFedarated):
         print('Have generated training and testing batches for all devices/tasks...')
 
         for i in trange(self.num_rounds + 1, desc='Round: ', ncols=120):
+
             # only train on non-held-out clients
-            indices, selected_clients = self.select_clients(i, pk, self.held_out, num_clients=self.clients_per_round)
+            indices, selected_clients = self.select_clients(round=i, pk=pk, held_out=self.held_out, num_clients=self.clients_per_round)
 
             Deltas = []
             hs = []

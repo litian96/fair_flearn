@@ -113,7 +113,7 @@ class BaseFedarated(object):
     def save(self):
         pass
 
-    def select_clients(self, round, pk, num_clients=20):
+    def select_clients(self, round, pk, held_out=None, num_clients=20):
         '''selects num_clients clients weighted by number of samples from possible_clients
         
         Args:
@@ -129,64 +129,25 @@ class BaseFedarated(object):
         np.random.seed(round+4)
 
         
+        if held_out: # meta-learning
+            can_be_chosen = len(self.clients) - held_out
+        else:
+            can_be_chosen = len(self.clients)
 
-        if self.sampling == 1:
-            indices = np.random.choice(range(len(self.clients)), num_clients, replace=False, p=pk)
+
+        if self.sampling == 1:  # uniform sampling + weighted average
+            indices = np.random.choice(range(can_be_chosen), num_clients, replace=False)
             return indices, np.asarray(self.clients)[indices]
-               
-        elif self.sampling == 2:
+                   
+        elif self.sampling == 2:  # weighted sampling + simple average
             num_samples = []
-            for client in self.clients:
+            for client in self.clients[:can_be_chosen]:
                 num_samples.append(client.train_samples)
             total_samples = np.sum(np.asarray(num_samples))
             pk = [item * 1.0 / total_samples for item in num_samples]
-            indices = np.random.choice(range(len(self.clients)), num_clients, replace=False, p=pk)
+            indices = np.random.choice(range(can_be_chosen), num_clients, replace=False, p=pk)
             return indices, np.asarray(self.clients)[indices]
-        
-
-        elif self.sampling == 3:
-            begin_index = round % len(self.clients)
-            end_index = (begin_index + 10) % len(self.clients)
-
-            if end_index > begin_index:
-                indices = range(begin_index, end_index)
-            else:
-                indices = list(range(begin_index, len(self.clients))) + list(range(0, end_index))  # python3, must convert to list first, then add
-            return indices, np.asarray(self.clients)[indices]
-        
-
-        
-        #baseline4: square root
-        elif self.sampling == 4:
-            num_samples = []
-            for client in self.clients:
-                num_samples.append(client.train_samples)
-            total_squared_samples = np.sum(np.sqrt(np.asarray(num_samples)))
-            pk = [np.sqrt(item * 1.0) * 1.0 / total_squared_samples for item in num_samples]
-            indices = np.random.choice(range(len(self.clients)), num_clients, replace=False, p=pk)
-            return indices, np.asarray(self.clients)[indices]
-             
-        # baseline 5/6
-        elif self.sampling == 5 or self.sampling == 6:  # sampling=6: uniform selection + simple average
-            indices = np.random.choice(range(len(self.clients)), num_clients, replace=False)
-            return indices, np.asarray(self.clients)[indices]
-
-        
-        # oracle
-        else:
-            indices = []
-            selected_clients=[]
-            for i in range(num_clients):
-                tmp = np.random.choice(range(int(i*(len(self.clients)/num_clients)),int((i+1)*(len(self.clients)/num_clients))), 1, replace=False) [0]
-                indices.append(tmp)
-                selected_clients.append(self.clients[tmp])
-            return np.asarray(indices), np.asarray(selected_clients)
-        
-        '''
-        indices = np.random.choice(range(len(self.clients)), num_clients, replace=False)
-        return indices, np.asarray(self.clients)[indices]
-        '''
-        
+            
 
     def aggregate(self, wsolns): 
         
@@ -194,12 +155,7 @@ class BaseFedarated(object):
         base = [0]*len(wsolns[0][1])
 
         for (w, soln) in wsolns:  # w is the number of samples
-            
-            if self.sampling == 5:
-                pass
-            elif self.sampling == 4:
-                w = np.sqrt(w)*1.0
-            else:
+            if self.sampling == 2:
                 w = 1.0
 
             total_weight += w 
@@ -239,14 +195,7 @@ class BaseFedarated(object):
         q_dynamic = q
         lr = learning_rate
 
-        '''
-        scaling_factor = lr * (loss * 1.0 / (loss + (q_dynamic * 1.0 * lr) * grad_norm))
-        
-        if self.track_loss_grad_ratio:
-            print("loss : {}, q/L: {}, (q/L)*g^2: {}".format(loss, q_dynamic * 1.0 * lr, (q_dynamic * 1.0 * lr) * grad_norm))
-        if scaling_factor > 1:
-            scaling_factor = 1
-        '''
+
         scaling_factor = lr
         scaled_updates = []
         for layer in range(len(grads)):

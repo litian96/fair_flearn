@@ -38,7 +38,7 @@ class Server(BaseFedarated):
                 np.savetxt(self.output + "_" + str(i) + "_validation.csv", validation_accuracies, delimiter=",")
             
             
-            indices, selected_clients = self.select_clients(i, pk, num_clients=self.clients_per_round)
+            indices, selected_clients = self.select_clients(round=i, pk=pk, num_clients=self.clients_per_round)
 
             Deltas = []
             hs = []
