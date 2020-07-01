@@ -29,7 +29,7 @@ under ```fair_flearn/data/fmnist```, we clearly describe how to generate and pre
 
 **In order to run the following demo on the Vehicle dataset, please go to `fair_flearn/data/vehicle`, download, and generate the Vehicle dataset following the `README` file under that directory.**
 
-## Start Running
+## Get Started
 
 ### Example: the Vehicle dataset
 
