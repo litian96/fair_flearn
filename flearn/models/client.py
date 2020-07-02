@@ -87,6 +87,14 @@ class Client(object):
     def train_error(self):
         tot_correct, loss = self.model.test(self.train_data)
         return tot_correct, self.train_samples
+    
+    def train_error_and_loss(self):
+        tot_correct, loss = self.model.test(self.train_data)
+        return tot_correct, loss, self.train_samples
+
+    def test_error_and_loss(self):
+        tot_correct, loss = self.model.test(self.test_data)
+        return tot_correct, loss, self.test_samples
 
 
     def test(self):
