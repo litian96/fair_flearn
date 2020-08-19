@@ -144,31 +144,6 @@ bash run.sh adult afl 0 0 2 | tee log_adult/afl
 ```
 * You can find the accuracy numbers in the log files `log_adult/qffedsgd_q5` and `log_adult/afl`, respectively. 
 
-### Fair meta-learning
-
-* prepare data
-
-downlaod the omniglot dataset from the [offical site](https://github.com/brendenlake/omniglot/), extract 50 alphabets from images\_evaluation.zip and images\_background.zip.
-
-```
-cd fair_flearn/data/omniglot
-mkdir raw
-mkdir data/test data/train
-```
-
-put the 50 alphabet folders under a new folder `raw/50_alphabets`, then run
-
-```
-python generate_1623_dirs.py
-python generate_data_meta_learning.py
-```
-
-* run
-
-```
-bash run_qmaml.sh 0.1  # q=0.1
-```
-the test accuacies for each task will be saved in `args.output+"_"+"test.csv"`
 
 
 ## References
