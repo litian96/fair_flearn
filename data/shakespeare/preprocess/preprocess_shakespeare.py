@@ -14,10 +14,24 @@ COE_CHARACTER_RE = re.compile(r'^([a-zA-Z][a-zA-Z ]*)\. (.*)')
 COE_CONT_RE = re.compile(r'^(.*)')
 
 def _match_character_regex(line, comedy_of_errors=False):
+    """
+    Return true if a regular expression.
+
+    Args:
+        line: (todo): write your description
+        comedy_of_errors: (todo): write your description
+    """
     return (COE_CHARACTER_RE.match(line) if comedy_of_errors
             else CHARACTER_RE.match(line))
 
 def _match_continuation_regex(line, comedy_of_errors=False):
+    """
+    Return true if the given regex match.
+
+    Args:
+        line: (todo): write your description
+        comedy_of_errors: (todo): write your description
+    """
     return (
         COE_CONT_RE.match(line) if comedy_of_errors else CONT_RE.match(line))
 
@@ -106,9 +120,22 @@ def _split_into_plays(shakespeare_full):
     return [play for play in plays if len(play[1]) > 1], discarded_lines
 
 def _remove_nonalphanumerics(filename):
+    """
+    Remove nonalphanumerics from filename.
+
+    Args:
+        filename: (str): write your description
+    """
     return re.sub('\\W+', '_', filename)
 
 def play_and_character(play, character):
+    """
+    Play and play a playlist.
+
+    Args:
+        play: (todo): write your description
+        character: (todo): write your description
+    """
     return _remove_nonalphanumerics((play + '_' + character).replace(' ', '_'))
 
 def _get_train_test_by_character(plays, test_fraction=0.2):
@@ -123,6 +150,13 @@ def _get_train_test_by_character(plays, test_fraction=0.2):
     all_test_examples = collections.defaultdict(list)
 
     def add_examples(example_dict, example_tuple_list):
+        """
+        Add samples : parameter.
+
+        Args:
+            example_dict: (dict): write your description
+            example_tuple_list: (list): write your description
+        """
         for play, character, sound_bite in example_tuple_list:
             example_dict[play_and_character(
                 play, character)].append(sound_bite)
@@ -162,6 +196,12 @@ def _write_data_by_character(examples, output_directory):
                 output.write(sound_bite + '\n')
 
 def main(argv):
+    """
+    Main function.
+
+    Args:
+        argv: (str): write your description
+    """
     print('Splitting .txt data between users')
     input_filename = argv[0]
     with open(input_filename, 'r') as input_file:

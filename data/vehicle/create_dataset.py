@@ -10,6 +10,12 @@ NUM_USER = 23
 
 # preprocess data (x-mean)/stdev
 def preprocess(x):
+    """
+    Preprocess the mean.
+
+    Args:
+        x: (todo): write your description
+    """
     means = np.mean(x, axis=0)
     std = np.std(x, axis=0)
     
@@ -19,6 +25,11 @@ def preprocess(x):
     return x
 
 def generate_data():
+    """
+    Generate raw data
+
+    Args:
+    """
     X = []
     y = []
     mat = scipy.io.loadmat('./raw_data/vehicle.mat')
@@ -42,6 +53,11 @@ def generate_data():
 
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
 
 
     train_data = {'users': [], 'user_data':{}, 'num_samples':[]}

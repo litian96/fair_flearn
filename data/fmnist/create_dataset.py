@@ -25,6 +25,11 @@ def load_mnist(path, kind='train'):
 
 
 def generate_dataset():
+    """
+    Generate mnist dataset.
+
+    Args:
+    """
 
   X_train, y_train = load_mnist('raw_data/fashion', kind='train')
   X_test, y_test = load_mnist('raw_data/fashion', kind='t10k')
@@ -41,6 +46,11 @@ def generate_dataset():
 
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
 
 
     train_data = {'users': [], 'user_data':{}, 'num_samples':[]}

@@ -5,6 +5,11 @@ from PIL import Image
 
 
 def generate_dataset():
+    """
+    Generate dataset dataset.
+
+    Args:
+    """
 
     task_to_class = {}
     for i in range(400): # 400 tasks
@@ -74,6 +79,11 @@ def generate_dataset():
 
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
 
     train_output = "./data/train/mytrain.json"
     test_output = "./data/test/mytest.json"

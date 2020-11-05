@@ -3,6 +3,18 @@ import numpy as np
 class Client(object):
     
     def __init__(self, id, group=None, train_data={'x':[],'y':[]}, eval_data={'x':[],'y':[]}, data_seed=1, model=None):
+        """
+        Initialize the dataset.
+
+        Args:
+            self: (todo): write your description
+            id: (str): write your description
+            group: (todo): write your description
+            train_data: (str): write your description
+            eval_data: (todo): write your description
+            data_seed: (str): write your description
+            model: (todo): write your description
+        """
         self.model = model
         self.id = id # integer
         self.group = group
@@ -51,6 +63,12 @@ class Client(object):
         return self.model.get_gradients(self.train_data, model_len)
 
     def get_loss(self):
+        """
+        Get the loss.
+
+        Args:
+            self: (todo): write your description
+        """
         return self.model.get_loss(self.train_data)
 
     def solve_grad(self):
@@ -85,14 +103,32 @@ class Client(object):
         return (self.train_samples, weights), (self.train_samples, grads), loss
 
     def train_error(self):
+        """
+        Train the model
+
+        Args:
+            self: (todo): write your description
+        """
         tot_correct, loss = self.model.test(self.train_data)
         return tot_correct, self.train_samples
     
     def train_error_and_loss(self):
+        """
+        Train the model and return loss.
+
+        Args:
+            self: (todo): write your description
+        """
         tot_correct, loss = self.model.test(self.train_data)
         return tot_correct, loss, self.train_samples
 
     def test_error_and_loss(self):
+        """
+        Compute the test loss and test and test
+
+        Args:
+            self: (todo): write your description
+        """
         tot_correct, loss = self.model.test(self.test_data)
         return tot_correct, loss, self.test_samples
 
@@ -108,5 +144,11 @@ class Client(object):
         return tot_correct, self.test_samples
 
     def validate(self):
+        """
+        Validate the model.
+
+        Args:
+            self: (todo): write your description
+        """
         tot_correct, loss = self.model.test(self.val_data)
         return tot_correct, self.val_samples

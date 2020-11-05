@@ -13,6 +13,16 @@ class Model(object):
     '''
     
     def __init__(self, num_classes, q, optimizer, seed=1):
+        """
+        Initialize the network.
+
+        Args:
+            self: (todo): write your description
+            num_classes: (int): write your description
+            q: (int): write your description
+            optimizer: (todo): write your description
+            seed: (int): write your description
+        """
 
         # params
         self.num_classes = num_classes
@@ -51,6 +61,13 @@ class Model(object):
         return features, labels, train_op, grads, eval_metric_ops, loss
 
     def set_params(self, model_params=None):
+        """
+        Set all variables.
+
+        Args:
+            self: (todo): write your description
+            model_params: (dict): write your description
+        """
         if model_params is not None:
             with self.graph.as_default():
                 all_vars = tf.trainable_variables()
@@ -58,11 +75,25 @@ class Model(object):
                     variable.load(value, self.sess)
 
     def get_params(self):
+        """
+        Get the model instance.
+
+        Args:
+            self: (todo): write your description
+        """
         with self.graph.as_default():
             model_params = self.sess.run(tf.trainable_variables())
         return model_params
 
     def get_gradients(self, data, model_len):
+        """
+        Compute the gradients.
+
+        Args:
+            self: (todo): write your description
+            data: (todo): write your description
+            model_len: (str): write your description
+        """
 
         grads = np.zeros(model_len)
         num_samples = len(data['y'])
@@ -75,6 +106,13 @@ class Model(object):
         return num_samples, grads
 
     def get_loss(self, data):
+        """
+        : param data.
+
+        Args:
+            self: (todo): write your description
+            data: (todo): write your description
+        """
         with self.graph.as_default():
             loss = self.sess.run(self.loss, feed_dict={self.features: data['x'], self.labels: data['y']})
         return loss
@@ -90,6 +128,13 @@ class Model(object):
         return soln, comp
 
     def solve_sgd(self, mini_batch_data):
+        """
+        Solve the model.
+
+        Args:
+            self: (todo): write your description
+            mini_batch_data: (float): write your description
+        """
         with self.graph.as_default():
             grads, loss, _ = self.sess.run([self.grads, self.loss, self.train_op],
                                     feed_dict={self.features: mini_batch_data[0], self.labels: mini_batch_data[1]})
@@ -109,4 +154,10 @@ class Model(object):
         return tot_correct, loss
     
     def close(self):
+        """
+        Closes the connection.
+
+        Args:
+            self: (todo): write your description
+        """
         self.sess.close()

@@ -8,6 +8,15 @@ from flearn.utils.tf_utils import process_grad, norm_grad, norm_grad_sparse
 
 class BaseFedarated(object):
     def __init__(self, params, learner, dataset):
+        """
+        Initialize the graph.
+
+        Args:
+            self: (todo): write your description
+            params: (dict): write your description
+            learner: (todo): write your description
+            dataset: (todo): write your description
+        """
         # transfer parameters to self
         for key, val in params.items(): setattr(self, key, val);
 
@@ -22,6 +31,12 @@ class BaseFedarated(object):
         self.metrics = Metrics(self.clients, params)
 
     def __del__(self):
+        """
+        Closes the client.
+
+        Args:
+            self: (todo): write your description
+        """
         self.client_model.close()
 
     def setup_clients(self, dataset, data_partition_seed, model=None):
@@ -37,6 +52,12 @@ class BaseFedarated(object):
         return all_clients
 
     def train_error(self):
+        """
+        Train the model.
+
+        Args:
+            self: (todo): write your description
+        """
         num_samples = []
         tot_correct = []
         self.client_model.set_params(self.latest_model)
@@ -99,6 +120,12 @@ class BaseFedarated(object):
         return num_samples, tot_correct
 
     def test_resulting_model(self):
+        """
+        Returns the model for the model.
+
+        Args:
+            self: (todo): write your description
+        """
         num_samples = []
         tot_correct = []
         #self.client_model.set_params(self.latest_model)
@@ -111,6 +138,12 @@ class BaseFedarated(object):
         return ids, groups, num_samples, tot_correct
 
     def save(self):
+        """
+        Save the current state of this object.
+
+        Args:
+            self: (todo): write your description
+        """
         pass
 
     def select_clients(self, round, pk, held_out=None, num_clients=20):
@@ -150,6 +183,13 @@ class BaseFedarated(object):
             
 
     def aggregate(self, wsolns): 
+        """
+        Aggregns.
+
+        Args:
+            self: (todo): write your description
+            wsolns: (str): write your description
+        """
         
         total_weight = 0.0
         base = [0]*len(wsolns[0][1])
@@ -168,6 +208,15 @@ class BaseFedarated(object):
 
 
     def aggregate2(self, weights_before, Deltas, hs): 
+        """
+        Aggregate the aggregations.
+
+        Args:
+            self: (todo): write your description
+            weights_before: (int): write your description
+            Deltas: (todo): write your description
+            hs: (str): write your description
+        """
         
         demominator = np.sum(np.asarray(hs))
         num_clients = len(Deltas)

@@ -1,10 +1,23 @@
 import pickle
 
 def save_obj(obj, name):
+    """
+    Save an object to file.
+
+    Args:
+        obj: (todo): write your description
+        name: (str): write your description
+    """
     with open(name + '.pkl', 'wb') as f:
         pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
 
 def load_obj(name):
+    """
+    Load an object from a pickle file.
+
+    Args:
+        name: (str): write your description
+    """
     with open(name + '.pkl', 'rb') as f:
         return pickle.load(f)
 

@@ -16,12 +16,25 @@ word2id = {v: k for k,v in enumerate(id2word)}
 word_emb = np.array(embs['emba'])
 
 def process_x(raw_x_batch, max_words=25):
+    """
+    Process a batch of words.
+
+    Args:
+        raw_x_batch: (todo): write your description
+        max_words: (int): write your description
+    """
     x_batch = [e[4] for e in raw_x_batch]
     x_batch = [line_to_indices(e, word2id, max_words) for e in x_batch]
     x_batch = np.array(x_batch)
     return x_batch
 
 def process_y(raw_y_batch):
+    """
+    Process raw data.
+
+    Args:
+        raw_y_batch: (todo): write your description
+    """
     y_batch = [1 if e=='4' else 0 for e in raw_y_batch]
     y_batch = [val_to_vec(2, e) for e in y_batch]
     y_batch = np.array(y_batch) 
@@ -31,6 +44,18 @@ def process_y(raw_y_batch):
 class Model(object):
 
     def __init__(self, seq_len, num_classes, n_hidden, q, optimizer, seed):
+        """
+        Initialize the network.
+
+        Args:
+            self: (todo): write your description
+            seq_len: (int): write your description
+            num_classes: (int): write your description
+            n_hidden: (int): write your description
+            q: (int): write your description
+            optimizer: (todo): write your description
+            seed: (int): write your description
+        """
         #params
         self.seq_len = seq_len
         self.num_classes = num_classes
@@ -54,6 +79,14 @@ class Model(object):
             self.flops = tf.profiler.profile(self.graph, run_meta=metadata, cmd='scope', options=opts).total_float_ops
     
     def create_model(self, q, optimizer):
+        """
+        Create the model.
+
+        Args:
+            self: (todo): write your description
+            q: (str): write your description
+            optimizer: (todo): write your description
+        """
         features = tf.placeholder(tf.int32, [None, self.seq_len], name='features')
         labels = tf.placeholder(tf.int32, [None, self.num_classes], name='labels')
 
@@ -75,6 +108,13 @@ class Model(object):
         return features, labels, pred, x, train_op, grads, eval_metric_ops, loss
 
     def set_params(self, model_params=None):
+        """
+        Set all variables.
+
+        Args:
+            self: (todo): write your description
+            model_params: (dict): write your description
+        """
         if model_params is not None:
             with self.graph.as_default():
                 all_vars = tf.trainable_variables()
@@ -82,11 +122,24 @@ class Model(object):
                     variable.load(value, self.sess)
 
     def get_params(self):
+        """
+        Get the model instance.
+
+        Args:
+            self: (todo): write your description
+        """
         with self.graph.as_default():
             model_params = self.sess.run(tf.trainable_variables())
         return model_params
 
     def get_loss(self, data):
+        """
+        Get loss loss.
+
+        Args:
+            self: (todo): write your description
+            data: (todo): write your description
+        """
         x_vecs = process_x(data['x'], self.seq_len)
         labels = process_y(data['y'])
         with self.graph.as_default():
@@ -114,6 +167,13 @@ class Model(object):
         return soln, comp
 
     def solve_sgd(self, mini_batch_data):
+        """
+        Solve a single loss.
+
+        Args:
+            self: (todo): write your description
+            mini_batch_data: (float): write your description
+        """
         with self.graph.as_default():
             input_data = process_x(mini_batch_data[0], self.seq_len)
             target_data = process_y(mini_batch_data[1])
@@ -135,4 +195,10 @@ class Model(object):
         return tot_correct, loss
     
     def close(self):
+        """
+        Closes the connection.
+
+        Args:
+            self: (todo): write your description
+        """
         self.sess.close()
