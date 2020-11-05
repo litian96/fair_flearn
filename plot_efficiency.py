@@ -12,6 +12,12 @@ matplotlib.rc('ytick', labelsize=17)
 
 
 def parse_log(file_name):
+    """
+    Parse log file
+
+    Args:
+        file_name: (str): write your description
+    """
     rounds = []
     accu = []
     loss = []

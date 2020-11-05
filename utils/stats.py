@@ -23,6 +23,12 @@ args = parser.parse_args()
 
 
 def load_data(name):
+    """
+    Loads data from a json file.
+
+    Args:
+        name: (str): write your description
+    """
 
     users = []
     num_samples = []
@@ -46,6 +52,12 @@ def load_data(name):
     return users, num_samples
 
 def print_dataset_stats(name):
+    """
+    Print statistics about a summary statistics.
+
+    Args:
+        name: (str): write your description
+    """
     users, num_samples = load_data(name)
     num_users = len(users)
 

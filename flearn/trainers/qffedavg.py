@@ -9,11 +9,26 @@ from flearn.utils.model_utils import batch_data, gen_batch, gen_epoch
 
 class Server(BaseFedarated):
     def __init__(self, params, learner, dataset):
+        """
+        Initialize the model.
+
+        Args:
+            self: (todo): write your description
+            params: (dict): write your description
+            learner: (todo): write your description
+            dataset: (todo): write your description
+        """
         print('Using fair fed avg to Train')
         self.inner_opt = tf.train.GradientDescentOptimizer(params['learning_rate'])
         super(Server, self).__init__(params, learner, dataset)
 
     def train(self):
+        """
+        Training function.
+
+        Args:
+            self: (todo): write your description
+        """
         print('Training with {} workers ---'.format(self.clients_per_round))
 
         num_clients = len(self.clients)

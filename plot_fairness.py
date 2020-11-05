@@ -18,6 +18,14 @@ dataset = ["Vehicle"]
 label_ = ["q=0", "q>0", 'uniform']
 
 def get_bar_y(filename, num_clients, num_bar=39):
+    """
+    Get bar chart.
+
+    Args:
+        filename: (str): write your description
+        num_clients: (int): write your description
+        num_bar: (int): write your description
+    """
 
 
     num_runs = 1
@@ -73,6 +81,12 @@ def get_bar_y(filename, num_clients, num_bar=39):
 
 
 def get_dis(filename):
+    """
+    Read a numpy array from a file
+
+    Args:
+        filename: (str): write your description
+    """
 
     accuracies = []
     for line in open(filename, 'r'):

@@ -7,6 +7,13 @@ import os
 import re
 
 def __txt_to_data(txt_dir, seq_length=80):
+    """
+    Convert txt file to txt
+
+    Args:
+        txt_dir: (str): write your description
+        seq_length: (int): write your description
+    """
     raw_text = ""
     with open(txt_dir,'r') as inf:
         raw_text = inf.read()

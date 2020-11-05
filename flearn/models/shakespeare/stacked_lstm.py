@@ -20,16 +20,40 @@ from tf_utils import graph_size
 from tf_utils import process_sparse_grad, process_sparse_grad2
 
 def process_x(raw_x_batch):
+    """
+    Convert a batch of words into a list.
+
+    Args:
+        raw_x_batch: (todo): write your description
+    """
     x_batch = [word_to_indices(word) for word in raw_x_batch]
     x_batch = np.array(x_batch)
     return x_batch
 
 def process_y(raw_y_batch):
+    """
+    Process raw y_y.
+
+    Args:
+        raw_y_batch: (todo): write your description
+    """
     y_batch = [letter_to_vec(c) for c in raw_y_batch]
     return y_batch
 
 class Model(object):
     def __init__(self, seq_len, num_classes, n_hidden, q, optimizer, seed):
+        """
+        Initialize the network.
+
+        Args:
+            self: (todo): write your description
+            seq_len: (int): write your description
+            num_classes: (int): write your description
+            n_hidden: (int): write your description
+            q: (int): write your description
+            optimizer: (todo): write your description
+            seed: (int): write your description
+        """
         self.seq_len = seq_len
         self.num_classes = num_classes
         self.n_hidden = n_hidden
@@ -51,6 +75,13 @@ class Model(object):
             self.flops = tf.profiler.profile(self.graph, run_meta=metadata, cmd='scope', options=opts).total_float_ops
 
     def create_model(self, optimizer):
+        """
+        Create the model.
+
+        Args:
+            self: (todo): write your description
+            optimizer: (todo): write your description
+        """
 
         features = tf.placeholder(tf.int32, [None, self.seq_len])
         embedding = tf.get_variable("embedding", [self.num_classes, 8])
@@ -74,6 +105,13 @@ class Model(object):
 
 
     def set_params(self, model_params=None):
+        """
+        Set all variables.
+
+        Args:
+            self: (todo): write your description
+            model_params: (dict): write your description
+        """
         if model_params is not None:
             with self.graph.as_default():
                 all_vars = tf.trainable_variables()
@@ -81,11 +119,24 @@ class Model(object):
                     variable.load(value, self.sess)
 
     def get_params(self):
+        """
+        Get the model instance.
+
+        Args:
+            self: (todo): write your description
+        """
         with self.graph.as_default():
             model_params = self.sess.run(tf.trainable_variables())
         return model_params
 
     def get_loss(self, data):
+        """
+        Get loss loss : param data : : return :
+
+        Args:
+            self: (todo): write your description
+            data: (todo): write your description
+        """
         with self.graph.as_default():
             loss = self.sess.run(self.loss, feed_dict={self.features: process_x(data['x']), self.labels: process_y(data['y'])})
         return loss
@@ -186,5 +237,11 @@ class Model(object):
         return tot_correct, loss
     
     def close(self):
+        """
+        Closes the connection.
+
+        Args:
+            self: (todo): write your description
+        """
         self.sess.close()
 

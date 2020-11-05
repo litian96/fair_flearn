@@ -146,6 +146,11 @@ def read_options():
     return parsed, learner, optimizer
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     # suppress tf warnings
     tf.logging.set_verbosity(tf.logging.WARN)
     

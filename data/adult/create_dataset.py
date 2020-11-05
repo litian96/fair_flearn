@@ -33,6 +33,12 @@ inputs = (
 )
 
 def isFloat(string):
+    """
+    Return true if string is a float.
+
+    Args:
+        string: (str): write your description
+    """
     # credits: http://stackoverflow.com/questions/2356925/how-to-check-whether-string-might-be-type-cast-to-float-in-python
     try:
         float(string)
@@ -41,6 +47,12 @@ def isFloat(string):
         return False
 
 def find_means_for_continuous_types(X):
+    """
+    Finds a list of continuous continuous continuous types.
+
+    Args:
+        X: (todo): write your description
+    """
     means = []
     for col in range(len(X[0])):
         summ = 0
@@ -53,6 +65,12 @@ def find_means_for_continuous_types(X):
     return means
 
 def generate_dataset(file_path):
+    """
+    Generate a dataset.
+
+    Args:
+        file_path: (str): write your description
+    """
 
     input_shape = []
     for i in inputs:
@@ -70,6 +88,13 @@ def generate_dataset(file_path):
     #output_dim: 2
 
 def prepare_data(raw_data, means):
+    """
+    Prepare the model.
+
+    Args:
+        raw_data: (todo): write your description
+        means: (todo): write your description
+    """
     
     X = raw_data[:, :-1]
     y = raw_data[:, -1:]
@@ -124,6 +149,12 @@ def prepare_data(raw_data, means):
     return (new_X, new_y)
 
 def generate_dataset(file_path):
+    """
+    Generate the dataset.
+
+    Args:
+        file_path: (str): write your description
+    """
     data = np.genfromtxt(file_path, delimiter=', ', dtype=str, autostrip=True)
     print("Data {} count: {}".format(file_path, len(data)))
     print(data[0])
@@ -141,6 +172,11 @@ def generate_dataset(file_path):
     return X.tolist(), y.tolist()
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
 
 
     train_data = {'users': [], 'user_data':{}, 'num_samples':[]}

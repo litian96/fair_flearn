@@ -11,12 +11,26 @@ import math
 NUM_USER = 100
 
 def softmax(x):
+    """
+    Return the softmax.
+
+    Args:
+        x: (array): write your description
+    """
     ex = np.exp(x)
     sum_ex = np.sum( np.exp(x))
     return ex/sum_ex
 
 
 def generate_synthetic(alpha, beta, iid):
+    """
+    Generates a symmetric symmetric distribution.
+
+    Args:
+        alpha: (float): write your description
+        beta: (float): write your description
+        iid: (str): write your description
+    """
 
     dimension = 60
     NUM_CLASS = 10
@@ -77,6 +91,11 @@ def generate_synthetic(alpha, beta, iid):
 
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
 
 
     train_data = {'users': [], 'user_data':{}, 'num_samples':[]}

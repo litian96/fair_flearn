@@ -106,6 +106,12 @@ def cosine_sim(a, b):
 
 
 def softmax(x):
+    """
+    Return the softmax.
+
+    Args:
+        x: (array): write your description
+    """
     ex = np.exp(x)
     sum_ex = np.sum( np.exp(x))
     return ex/sum_ex
@@ -113,6 +119,12 @@ def softmax(x):
 
 
 def norm_grad(grad_list):
+    """
+    Computes the gradient of gradients.
+
+    Args:
+        grad_list: (list): write your description
+    """
     # input: nested gradients
     # output: square of the L-2 norm
 
@@ -125,6 +137,12 @@ def norm_grad(grad_list):
 
 
 def norm_grad_sparse(grads):
+    """
+    Compute the gradients.
+
+    Args:
+        grads: (array): write your description
+    """
     # input: sparse gradients (usually assicated with trainable embedding variables)
     # output: square of the L-2 norm
 

@@ -48,6 +48,14 @@ def batch_data2(data, batch_size):
 
 
 def gen_batch(data, batch_size, num_iter):
+    """
+    Generate a batch of data.
+
+    Args:
+        data: (todo): write your description
+        batch_size: (int): write your description
+        num_iter: (int): write your description
+    """
     data_x = data['x']
     data_y = data['y']
     index = len(data_y) 
@@ -150,6 +158,14 @@ def project(y):
 
 class Metrics(object):
     def __init__(self, clients, params):
+        """
+        Initialize client objects.
+
+        Args:
+            self: (todo): write your description
+            clients: (todo): write your description
+            params: (dict): write your description
+        """
         self.params = params
         num_rounds = params['num_rounds']
         self.bytes_written = {c.id: [0] * num_rounds for c in clients}
@@ -159,12 +175,27 @@ class Metrics(object):
         self.train_accuracies = []
 
     def update(self, rnd, cid, stats):
+        """
+        Updates rndarray.
+
+        Args:
+            self: (todo): write your description
+            rnd: (array): write your description
+            cid: (str): write your description
+            stats: (todo): write your description
+        """
         bytes_w, comp, bytes_r = stats
         self.bytes_written[cid][rnd] += bytes_w
         self.client_computations[cid][rnd] += comp
         self.bytes_read[cid][rnd] += bytes_r
 
     def write(self):
+        """
+        Write metrics to json to json to json.
+
+        Args:
+            self: (todo): write your description
+        """
         metrics = {}
         metrics['dataset'] = self.params['dataset']
         metrics['num_rounds'] = self.params['num_rounds']
