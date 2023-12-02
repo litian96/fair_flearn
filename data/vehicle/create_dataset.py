@@ -2,6 +2,7 @@ import scipy.io
 import numpy as np
 import random
 import json
+import os
 from numpy import *
 
 NUM_USER = 23
@@ -46,6 +47,9 @@ def main():
 
     train_data = {'users': [], 'user_data':{}, 'num_samples':[]}
     test_data = {'users': [], 'user_data':{}, 'num_samples':[]}
+
+    os.makedirs("./data/train", exist_ok=True)
+    os.makedirs("./data/test", exist_ok=True)
 
     train_path = "./data/train/mytrain.json"
     test_path = "./data/test/mytest.json"
